@@ -45,6 +45,8 @@ import (
 	"github.com/spf13/cast"
 	"github.com/spf13/hugo/helpers"
 	jww "github.com/spf13/jwalterweatherman"
+
+	humanizeUnit "github.com/dustin/go-humanize"
 )
 
 var funcMap template.FuncMap
@@ -1277,6 +1279,15 @@ func ref(page interface{}, ref string) template.HTML {
 	return refPage(page, ref, "Ref")
 }
 
+// relTime returns the relative time
+func relTime(v interface{}) (string, error) {
+	t, err := cast.ToTimeE(v)
+	if err != nil {
+		return "", err
+	}
+	return humanizeUnit.Time(t), nil
+}
+
 // relRef returns the relative URL path to a given content item.
 func relRef(page interface{}, ref string) template.HTML {
 	return refPage(page, ref, "RelRef")
@@ -1800,6 +1811,7 @@ func init() {
 		"readDir":      readDirFromWorkingDir,
 		"readFile":     readFileFromWorkingDir,
 		"ref":          ref,
+		"relTime":      relTime,
 		"relURL":       func(a string) template.HTML { return template.HTML(helpers.RelURL(a)) },
 		"relref":       relRef,
 		"replace":      replace,

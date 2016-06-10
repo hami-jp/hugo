@@ -105,6 +105,7 @@ plainify: {{ plainify  "Hello <strong>world</strong>, gophers!" }}
 pluralize: {{ "cat" | pluralize }}
 readDir: {{ range (readDir ".") }}{{ .Name }}{{ end }}
 readFile: {{ readFile "README.txt" }}
+relTime: {{ relTime "2016-06-09" }}
 relURL 1: {{ "http://gohugo.io/" | relURL }}
 relURL 2: {{ "mystyle.css" | relURL }}
 replace: {{ replace "Batman and Robin" "Robin" "Catwoman" }}
